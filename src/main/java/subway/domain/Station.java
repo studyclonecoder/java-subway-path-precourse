@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class Station {
     private String name;
-    private Map shortestTime = new LinkedHashMap();
-    private Map shortestDistance = new LinkedHashMap();
+    private Map<String, Integer> shortestTime = new LinkedHashMap();
+    private Map<String, Integer> shortestDistance = new LinkedHashMap();
 
     public Station(String name) {
         this.name = name;
@@ -23,5 +23,21 @@ public class Station {
 
     public void addShortestTime(String endStation, Integer time) {
         shortestTime.put(endStation, time);
+    }
+
+    public Map getShortestTime() {
+        return shortestTime;
+    }
+
+    public Map getShortestDistance() {
+        return shortestDistance;
+    }
+
+    public Integer distance(String station) {
+        return shortestDistance.get(station);
+    }
+
+    public Integer time(String station) {
+        return shortestTime.get(station);
     }
 }

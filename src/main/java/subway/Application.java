@@ -87,6 +87,7 @@ public class Application {
         station = new Station("YANGJAEFOREST");
         station.addShortestDistance("YANGJAE", 10);
         station.addShortestTime("YANGJAE", 3);
+        StationRepository.addStation(station);
         LineRepository.addLine(line);
     }
 }

@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.List;
 import java.util.Scanner;
+import subway.domain.StationRepository;
 import view.InputView;
 
 public class SubwayController {
@@ -16,9 +18,15 @@ public class SubwayController {
         // 2. 최소 시간
         // B. 돌아가기
         String mainNumber = InputView.requirePathMain(scanner);
-        if (mainNumber.equals("1")) {
+        if (mainNumber.equals("2")) {
             String startStation = InputView.requireStartStation(scanner);
             String endStation = InputView.requireEndStation(scanner);
+            List<String> shortestTimeStations = StationRepository
+                .getShortestTimeStations(startStation, endStation);
+            Integer distance = StationRepository.calculateDistnace(shortestTimeStations);
+            Integer time = StationRepository.calculateTime(shortestTimeStations);
+            System.out.println(distance);
+            System.out.println(time);
         }
     }
 }
