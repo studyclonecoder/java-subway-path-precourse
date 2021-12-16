@@ -40,4 +40,8 @@ public class Station {
     public Integer time(String station) {
         return shortestTime.get(station);
     }
+
+    public boolean canGo(String station) {
+        return shortestTime.containsKey(station) || shortestDistance.containsKey(station);
+    }
 }

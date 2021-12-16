@@ -68,8 +68,10 @@ public class StationRepository {
             Integer distance = stations.stream()
                 .filter(
                     station -> Objects.equals(station.getName(), vertexList.get(startStationIndex)))
-                .map(station -> station.distance(vertexList.get(endStationIndex))).findFirst()
-                .orElse(-1);
+                .filter(station -> station.canGo(vertexList.get(endStationIndex)))
+                .map(station -> station.distance(vertexList.get(endStationIndex)))
+                .findFirst()
+                .get();
             totalDistance += distance;
         }
         return totalDistance;
@@ -84,10 +86,36 @@ public class StationRepository {
             Integer distance = stations.stream()
                 .filter(
                     station -> Objects.equals(station.getName(), vertexList.get(startStationIndex)))
+                .filter(station -> station.canGo(vertexList.get(endStationIndex)))
                 .map(station -> station.time(vertexList.get(endStationIndex))).findFirst()
                 .orElse(-1);
             totalDistance += distance;
         }
         return totalDistance;
+    }
+
+    public static List<String> getShortestDistanceStations(String startStation, String endStation) {
+        WeightedMultigraph<String, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
+        for (Station station : stations) {
+            String startStationName = station.getName();
+            graph.addVertex(startStationName);
+        }
+
+        for (Station station : stations) {
+            String startStationName = station.getName();
+            System.out.println(startStationName);
+
+            Map<String, Integer> shortestDistance = station.getShortestDistance();
+            for (String endStationName : shortestDistance.keySet()) {
+                Integer time = shortestDistance.get(endStationName);
+                System.out.println(endStationName);
+                graph.setEdgeWeight(graph.addEdge(startStationName, endStationName), time);
+            }
+            System.out.println();
+        }
+        DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(graph);
+        List<String> vertextList = dijkstraShortestPath.getPath(startStation, endStation).getVertexList();
+
+        return vertextList;
     }
 }

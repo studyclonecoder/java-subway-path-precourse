@@ -28,5 +28,17 @@ public class SubwayController {
             System.out.println(distance);
             System.out.println(time);
         }
+
+        if (mainNumber.equals("1")) {
+            String startStation = InputView.requireStartStation(scanner);
+            String endStation = InputView.requireEndStation(scanner);
+            List<String> shortestDistnaceStations = StationRepository
+                .getShortestDistanceStations(startStation, endStation);
+            System.out.println(shortestDistnaceStations);
+            Integer distance = StationRepository.calculateDistnace(shortestDistnaceStations);
+            Integer time = StationRepository.calculateTime(shortestDistnaceStations);
+            System.out.println(distance);
+            System.out.println(time);
+        }
     }
 }
