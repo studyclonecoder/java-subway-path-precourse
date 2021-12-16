@@ -7,7 +7,7 @@ import view.InputView;
 public class Application {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
-        SubwayController subwayController = new SubwayController();
+        SubwayController subwayController = new SubwayController(scanner);
         // TODO: 프로그램 구현
 
         // ## 메인 화면
